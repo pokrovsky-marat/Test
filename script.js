@@ -1,20 +1,27 @@
-function nextBigger(n) {
-  let max = (n + '').split('').sort((a, b) => b - a).join('');
-  if (n == max) return -1;
-  do n++;
-  while (max != (n + '').split('').sort((a, b) => b - a).join(''));
-  return n;
+function gap(g, m, n) {
+  function isPrime(n) {
+    let i = 2,
+      j = 0;
+    while (i * i <= n && j != 1) {
+      if (n % i == 0) {
+        j = 1;
+      }
+      i = i + 1;
+    }
+    return j == 1 ? false : true;
+  }
+  m = m % 2 == 0 ? m + 1 : m;
+  let leftPrime = Infinity;
+
+  for (let i = m; i < n; i += 2) {
+    if (isPrime(i)) {
+      if (i - leftPrime == g) {
+        return [leftPrime, i];
+      } else {
+        leftPrime = i;
+      }
+    }
+  }
+  return null;
 }
-console.log(nextBigger(9876543210 ));
-console.log(nextBigger(59884848459853));
-console.log(nextBigger(513 ));
-console.log(nextBigger(2017 ));
-console.log(nextBigger(414 ));
-console.log(nextBigger(144 ));
-
-
-// Test.assertEquals(nextBigger(12),21)
-// Test.assertEquals(nextBigger(513),531)
-// Test.assertEquals(nextBigger(2017),2071)
-// Test.assertEquals(nextBigger(414),441)
-// Test.assertEquals(nextBigger(144),414)
+console.log(gap(2, 100, 110));
